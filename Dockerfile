@@ -2,9 +2,12 @@ FROM golang:1.22
 
 WORKDIR /usr/src/app
 
-COPY . ./
+COPY go.mod go.sum ./
+RUN go mod download
 
-RUN go get
+COPY *.go ./
+COPY tracker.db ./
+
 RUN go test
 RUN go build -o main .
 
